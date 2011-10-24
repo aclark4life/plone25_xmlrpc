@@ -10,9 +10,8 @@ except:
     pass
 
 try:
+    data = open(filename).read()
     proxy = xmlrpclib.ServerProxy('http://admin:admin@localhost:8080/Plone/screenshot.png', verbose=True)
-    wrappedData = xmlrpclib.Binary(open(filename).read())
-    wrappedData.filename = filename
-    proxy.setImage(wrappedData)
+    proxy.setImage(xmlrpclib.Binary(data))
 except:
     pass

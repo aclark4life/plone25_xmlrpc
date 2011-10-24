@@ -1,5 +1,88 @@
 import xmlrpclib
 
+from __future__ import nested_scopes
+
+import sys
+
+from copy import deepcopy
+from cgi import escape
+from cStringIO import StringIO
+from logging import ERROR
+from types import ListType, TupleType, ClassType, FileType, DictType, IntType
+from types import StringType, UnicodeType, StringTypes
+
+from AccessControl import ClassSecurityInfo
+from AccessControl import getSecurityManager
+from Acquisition import aq_base
+from Acquisition import aq_parent
+from Acquisition import aq_inner
+from Acquisition import Implicit
+from BTrees.OOBTree import OOBTree
+from ComputedAttribute import ComputedAttribute
+from DateTime import DateTime
+from ExtensionClass import Base
+from Globals import InitializeClass
+from OFS.Image import File
+from OFS.Image import Pdata
+from OFS.Image import Image as BaseImage
+from OFS.Traversable import Traversable
+from OFS.Cache import ChangeCacheSettingsPermission
+from ZPublisher.HTTPRequest import FileUpload
+from ZODB.POSException import ConflictError
+
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import _getAuthenticatedUser
+from Products.CMFCore import permissions
+
+from Products.Archetypes.config import REFERENCE_CATALOG
+from Products.Archetypes.Layer import DefaultLayerContainer
+from Products.Archetypes.interfaces.storage import IStorage
+from Products.Archetypes.interfaces.base import IBaseUnit
+from Products.Archetypes.interfaces.field import IField
+from Products.Archetypes.interfaces.field import IObjectField
+from Products.Archetypes.interfaces.field import IFileField
+from Products.Archetypes.interfaces.layer import ILayerContainer
+from Products.Archetypes.interfaces.vocabulary import IVocabulary
+from Products.Archetypes.exceptions import ObjectFieldException
+from Products.Archetypes.exceptions import TextFieldException
+from Products.Archetypes.exceptions import FileFieldException
+from Products.Archetypes.exceptions import ReferenceException
+from Products.Archetypes.generator import i18n
+from Products.Archetypes.Widget import BooleanWidget
+from Products.Archetypes.Widget import CalendarWidget
+from Products.Archetypes.Widget import ComputedWidget
+from Products.Archetypes.Widget import DecimalWidget
+from Products.Archetypes.Widget import FileWidget
+from Products.Archetypes.Widget import ImageWidget
+from Products.Archetypes.Widget import IntegerWidget
+from Products.Archetypes.Widget import LinesWidget
+from Products.Archetypes.Widget import StringWidget
+from Products.Archetypes.Widget import ReferenceWidget
+from Products.Archetypes.BaseUnit import BaseUnit
+from Products.Archetypes.ReferenceEngine import Reference
+from Products.Archetypes.utils import DisplayList
+from Products.Archetypes.utils import Vocabulary
+from Products.Archetypes.utils import className
+from Products.Archetypes.utils import mapply
+from Products.Archetypes.utils import shasattr
+from Products.Archetypes.utils import contentDispositionHeader
+from Products.Archetypes.debug import log
+from Products.Archetypes.debug import log_exc
+from Products.Archetypes.debug import deprecated
+from Products.Archetypes import config
+from Products.Archetypes.Storage import AttributeStorage
+from Products.Archetypes.Storage import ObjectManagedStorage
+from Products.Archetypes.Storage import ReadOnlyStorage
+from Products.Archetypes.Registry import setSecurity
+from Products.Archetypes.Registry import registerField
+from Products.Archetypes.Registry import registerPropertyType
+
+from Products.validation import ValidationChain
+from Products.validation import UnknowValidatorError
+from Products.validation import FalseValidatorError
+from Products.validation.interfaces.IValidator import IValidator, IValidationChain
+
+
 def _process_input(self, value, file=None, default=None, mimetype=None,
                    instance=None, filename='', **kwargs):
     if file is None:
