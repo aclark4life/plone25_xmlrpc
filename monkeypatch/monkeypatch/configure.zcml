@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.monkeypatcher">
+
+    <include package="collective.monkeypatcher" />
+
+    <monkey:patch
+        description="http://stackoverflow.com/questions/7880222/failure-to-upload-image-to-plone-2-5-via-xmlrpc"
+        class="Products.Archetypes.Field"
+        original="_process_input"
+        replacement=".Field._process_input"
+        />
+
+</configure>
