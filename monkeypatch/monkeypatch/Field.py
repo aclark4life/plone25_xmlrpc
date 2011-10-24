@@ -1,8 +1,7 @@
-import xmlrpclib
-
 from __future__ import nested_scopes
 
 import sys
+import xmlrpclib
 
 from copy import deepcopy
 from cgi import escape
