@@ -10,8 +10,8 @@ except:
     pass
 
 try:
-    proxy = xmlrpclib.ServerProxy('http://localhost:8080/Plone/screenshot.png', verbose=True)
+    proxy = xmlrpclib.ServerProxy('http://admin:admin@localhost:8080/Plone/screenshot.png', verbose=True)
     data = open('screenshot.png').read()
-    proxy.setImage(data)
+    proxy.setImage('foo')
 except:
     pass
