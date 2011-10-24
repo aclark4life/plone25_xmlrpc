@@ -7,7 +7,7 @@
 
     <monkey:patch
         description="http://stackoverflow.com/questions/7880222/failure-to-upload-image-to-plone-2-5-via-xmlrpc"
-        class="Products.Archetypes.Field"
+        class="Products.Archetypes.Field.FileField"
         original="_process_input"
         replacement=".Field._process_input"
         />
